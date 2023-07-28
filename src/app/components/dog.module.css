@@ -1,0 +1,11 @@
+.box{
+  position: relative;
+  flex-basis: 33.33%;
+  padding-bottom: calc(33.33%/3*2); /* 3:2 aspect ratio */
+  overflow: hidden;
+}
+.img{
+  /* 가로-세로 비율 : 3:2  */
+  aspect-ratio: 1.5;
+  object-fit: cover;
+}

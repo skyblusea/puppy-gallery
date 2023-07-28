@@ -1,34 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# API Fetching Strategy 연습문제
 
-## Getting Started
+1. 제시된 Open API를 활용해서 다음의 같은 화면을 만들어 주세요.
 
-First, run the development server:
+   ![tobe_01](tobe_01.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+   - [API Documentation]('https://dog.ceo/dog-api/documentation/breed')
+   - 다른 품종(Breed)의 강아지 3마리씩 보여줍니다.
+   - 쿼리 값은 상수로 제공되며, 자유롭게 변경할 수 있습니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. API Caching 을 도입해 필요할 때만 새로운 데이터를 가져오도록 해봅시다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   ![tobe_02](tobe_02.gif)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+   - API 호출 결과를 캐싱 처리 합니다.
+   - Cache 리셋 기능을 추가하여 리셋 후 호출에 새로운 데이터를 받아오도록 합니다.
+   - UI 는 첨부된 화면을 참고하되, 자유롭게 제작할 수 있습니다.
 
-## Learn More
+3. Cache Revalidation 을 추가해 봅시다.
 
-To learn more about Next.js, take a look at the following resources:
+   ![tobe_03](tobe_03.gif)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   - API 캐싱 유효시간 설정을 추가합니다. (예시는 3초 설정)
+   - 설정된 유효시간이 지나가면 캐시 데이터를 갱신합니다.
+   - 아래의 라이브러리와 그 예시는 연습 문제 풀이에 도움이 될 수 있습니다.
+   - https://day.js.org/docs/en/query/is-after
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+4. 이제 React Query 사용해 같은 기능을 구현해 봅시다.
 
-## Deploy on Vercel
+   ![tobe_04](tobe_04.gif)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   - React Query 를 이용해 좀 더 디테일한 캐싱 설정을 실습해 봅시다.
+   - 몇 초 (예시는 1초) 이후의 캐싱은 오래된 데이터로 설정해 주세요.
+   - 몇 초 (예시는 1초) 이후 브라우저에 다시 포커싱하면 새로운 데이터로 업데이트 처리 해주세요.
