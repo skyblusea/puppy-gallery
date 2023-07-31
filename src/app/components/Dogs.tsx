@@ -5,16 +5,16 @@ import styles from "./dogs.module.css"
 
 // React.FC : interface
 interface DogsProps {
-    dog: { breed:string, urls:string[] };
+    dog: [breed:string, urls:string[]];
 }
 
 //FC : Function Component : 제네릭 타입으로 타입 명시
 const Dogs: FC<DogsProps> = ({dog}) => {
     return (
         <div className={styles.wrap}>
-            {dog.urls.length && dog.urls.map((url) => {
+            {dog[1].length && dog[1].map((url) => {
                 return (
-                    <Dog key={url} breed={dog.breed} url={url} />
+                    <Dog key={url} breed={dog[0]} url={url} />
                 )
             })}
         </div>
