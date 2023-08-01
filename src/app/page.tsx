@@ -1,7 +1,8 @@
 import styles from "./page.module.css";
-import Dogs from "@/app/components/Dogs";
 import getDogs from "@/hooks/getDogs";
-import Button from "./components/Button";
+
+import SSRPuppyTable from "./components/SSRPuppyTable";
+import CSRPuppyTable from "./components/CSRPuppyTable";
 
 
 export default async function Home() {
@@ -10,15 +11,8 @@ export default async function Home() {
 
   return (
     <main className={styles.main}>
-
-      <div className={styles.table}>
-        {dogs.map((dog) => {
-          return (
-            //! initialState 때문에 key값이 똑같은 경우가 있음
-            !!dog && <Dogs key={dog[0]} dog={dog} />
-          );
-        })}
-      </div>
+      <CSRPuppyTable dogs={dogs} fetchData={fetchData} clearData={clearData}/>
+      {/* <SSRPuppyTable dogs={dogs} /> */}
     </main>
   );
 }

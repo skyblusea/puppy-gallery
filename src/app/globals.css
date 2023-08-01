@@ -105,3 +105,17 @@ a {
     color-scheme: dark;
   }
 }
+
+.table{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}

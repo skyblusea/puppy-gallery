@@ -3,10 +3,10 @@ const allBreeds = new Set<string>();
 
 
 const getDogs = () => {
-
+  
   const fetchingAllBreeds = async () => {
+    "use server"
     if (allBreeds.size) {
-      console.log("캐싱 이용");
       return [...allBreeds];
     }
     try {
@@ -21,6 +21,7 @@ const getDogs = () => {
   };
 
   const getRandomBreeds = async () => {
+    "use server"
     const allBreeds = await fetchingAllBreeds();
     let indexArr = [];
     //랜덤으로 인덱스 숫자 3개 뽑기
@@ -37,6 +38,7 @@ const getDogs = () => {
 
   //품종별 사진 가져오기
   const fetchingDogs = async (breed: string) => {
+    "use server"
     try {
       const response = await fetch(`https://dog.ceo/api/breed/${breed}/images/random/3`);
       const data = await response.json();
@@ -49,6 +51,7 @@ const getDogs = () => {
   };
 
   const fetchData = async () => {
+    "use server"
     if (cache.size >= 3) {
       console.log("캐싱 이용");
       return [...cache]
@@ -65,7 +68,8 @@ const getDogs = () => {
     return [...cache]
   };
 
-  const clearData = () => {
+  const clearData = async() => {
+    "use server"
     cache.clear()
   };
 
