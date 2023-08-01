@@ -1,22 +1,21 @@
 "use client"
-import { FC, use, useEffect, useState } from "react";
-import Dogs from "./Dogs";
-
+import { FC, useEffect, useState } from "react";
 import Button from "./Button";
 import PuppyTable from "./PuppyTable";
 
-interface CSRPuppyTable {
+interface CSRPuppyGalleryProps {
   dogs: [string, string[]][];
   fetchData:() => Promise<[string, string[]][]>;
   clearData:() => void;
+  cacheRevalidation:() => Promise<[string, string[]][]>;
 }
 
 
-const CSRPuppyTable: FC<CSRPuppyTable> = ({ dogs,fetchData, clearData }) => {
+const CSRPuppyGallery: FC<CSRPuppyGalleryProps> = ({ dogs,fetchData,cacheRevalidation, clearData }) => {
   const [apiCall, setApiCall] = useState(1)
   const [refetchedDogs, setRefetchedDogs] = useState(dogs)
   useEffect(() => {
-    fetchData().then((data) => {
+    cacheRevalidation().then((data) => {
       setRefetchedDogs(data)
     })
   }, [apiCall])
@@ -35,4 +34,4 @@ const CSRPuppyTable: FC<CSRPuppyTable> = ({ dogs,fetchData, clearData }) => {
   );
 };
 
-export default CSRPuppyTable;
+export default CSRPuppyGallery;

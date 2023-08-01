@@ -1,11 +1,11 @@
 import { FC } from "react";
 import Dogs from "./Dogs";
 
-interface PuppyTableProps {
+interface SSRPuppyGalleryProps {
   dogs : [string, string[]][]
 }
 
-const SSRPuppyTable: FC<PuppyTableProps> = ({ dogs }) => {
+const CSRPuppyGallery: FC<SSRPuppyGalleryProps> = ({ dogs }) => {
   return (
     <div className="table">
     {dogs.map((dog) => {
@@ -18,4 +18,4 @@ const SSRPuppyTable: FC<PuppyTableProps> = ({ dogs }) => {
   );
 };
 
-export default SSRPuppyTable;
+export default CSRPuppyGallery;

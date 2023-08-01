@@ -1,5 +1,7 @@
+import { deadline,isValidTime } from "../helper/time"
 const cache = new Map<string,string[]>();
 const allBreeds = new Set<string>();
+const time = new Map<string,Date>();
 
 
 const getDogs = () => {
@@ -65,15 +67,30 @@ const getDogs = () => {
       //! TypeScript does not know if the type is PromiseFulfilledResult / PromiseRejectedResult when checking types.
     );
     fulfilledContents.forEach((result, idx) => cache.set(breeds[idx], result.value));
+    time.set("deadline",deadline())
     return [...cache]
   };
+
+  const cacheRevalidation = async () => {
+    "use server"
+    if (isValidTime(time.get("deadline"))) {
+      return [...cache];
+    } else {
+      console.log("캐싱 만료")
+      cache.clear()
+      time.clear()
+      return fetchData();
+    }
+  }
+
 
   const clearData = async() => {
     "use server"
     cache.clear()
+    time.clear()
   };
 
-  return { fetchData, clearData };
+  return { fetchData, clearData, cacheRevalidation };
 };
 
 export default getDogs;
