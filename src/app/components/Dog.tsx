@@ -1,10 +1,11 @@
 import Image from "next/image";
 import { FC } from "react";
 import styles from "./dog.module.css"
+import { StaticImageData } from "next/image";
 
 interface DogProps {
-    url: string;
-    breed: string
+    url: string | StaticImageData;
+    breed: string;
 }
 
 const Dog: FC<DogProps> = ({breed, url}) => {

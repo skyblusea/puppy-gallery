@@ -66,7 +66,12 @@ const getDogs = () => {
       //! 타입가드를 사용하는 이유 ?
       //! TypeScript does not know if the type is PromiseFulfilledResult / PromiseRejectedResult when checking types.
     );
+    const rejectedContents = contents.filter(
+      (result): result is PromiseRejectedResult => result.status === "rejected"
+    );
     fulfilledContents.forEach((result, idx) => cache.set(breeds[idx], result.value));
+    
+    //캐싱 만료 시간 설정
     time.set("deadline",deadline())
     return [...cache]
   };
