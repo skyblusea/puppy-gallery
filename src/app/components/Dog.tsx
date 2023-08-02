@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FC } from "react";
+import { FC, useState } from "react";
 import styles from "./dog.module.css"
 import { StaticImageData } from "next/image";
 
@@ -9,11 +9,11 @@ interface DogProps {
 }
 
 const Dog: FC<DogProps> = ({breed, url}) => {
-
-
+    const [isError, setIsError] = useState(false)
+    const fallBackSrc = "/NoPuppy.png"
     return (
         <div className={styles.box}>
-            <Image src={url} alt={breed} className={styles.img} fill sizes="100%" />
+            <Image src={isError ?fallBackSrc :url} alt={breed} className={styles.img} fill sizes="100%" onError={(e)=>setIsError(true)}/>
         </div>
     )
 }
