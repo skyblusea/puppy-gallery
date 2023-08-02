@@ -13,8 +13,6 @@ interface DogsProps {
 //FC : Function Component : 제네릭 타입으로 타입 명시
 const Dogs: FC<DogsProps> = ({ dog }) => {
     const fetchedDogLength = dog[1].length
-    console.log("fetchedDogLength",fetchedDogLength)
-    console.log("dog",dog)
     return (
         <div className={styles.wrap}>
             {dog[1].length && dog[1].map((url) => {
