@@ -9,7 +9,8 @@ interface DogProps {
 }
 
 const Dog: FC<DogProps> = ({breed, url}) => {
-    
+
+
     return (
         <div className={styles.box}>
             <Image src={url} alt={breed} className={styles.img} fill sizes="100%" />

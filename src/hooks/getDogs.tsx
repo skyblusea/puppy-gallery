@@ -1,20 +1,21 @@
-import { deadline,isValidTime } from "../helper/time"
-const cache = new Map<string,string[]>();
+import { deadline, isValidTime } from "../helper/time"
+const cache = new Map<string, string[]>();
 const allBreeds = new Set<string>();
-const time = new Map<string,Date>();
+const time = new Map<string, Date>();
 
 
 const getDogs = () => {
-  
+
   const fetchingAllBreeds = async () => {
     "use server"
     if (allBreeds.size) {
+      console.log("리스트 캐시 이용");
       return [...allBreeds];
     }
     try {
-      const response = await fetch(`https://dog.ceo/api/breeds/list/all`);
+      const response = await fetch(`https://dog.ceo/api/breeds/list/all`, { cache: 'no-store' });
       const data = await response.json();
-      Object.keys(data.message).forEach(e=> allBreeds.add(e))
+      Object.keys(data.message).forEach(e => allBreeds.add(e))
       return [...allBreeds];
     } catch (error) {
       console.error("Error fetching dog breed lists", error);
@@ -42,7 +43,7 @@ const getDogs = () => {
   const fetchingDogs = async (breed: string) => {
     "use server"
     try {
-      const response = await fetch(`https://dog.ceo/api/breed/${breed}/images/random/3`);
+      const response = await fetch(`https://dog.ceo/api/breed/${breed}/images/random/3`, { cache: 'no-store' });
       const data = await response.json();
       return data.message;
     } catch (error) {
@@ -55,9 +56,10 @@ const getDogs = () => {
   const fetchData = async () => {
     "use server"
     if (cache.size >= 3) {
-      console.log("캐싱 이용");
+      console.log("패치 캐시 이용");
       return [...cache]
     }
+    console.log("패치 시작 캐시에 저장된 데이터->", [...cache])
     const breeds = await getRandomBreeds();
     const contents = await Promise.allSettled(breeds.map(fetchingDogs)); //!breeds 배열을 돌며 fetchingDogs 함수 적용
     // Promise.all(breeds.map((breed) => (fetchingDogs(breed))));)
@@ -70,26 +72,25 @@ const getDogs = () => {
       (result): result is PromiseRejectedResult => result.status === "rejected"
     );
     fulfilledContents.forEach((result, idx) => cache.set(breeds[idx], result.value));
-    
+    console.log("패치 완료 캐시에 저장된 데이터->", [...cache])
     //캐싱 만료 시간 설정
-    time.set("deadline",deadline())
+    time.set("deadline", deadline())
     return [...cache]
   };
 
   const cacheRevalidation = async () => {
     "use server"
-    if (isValidTime(time.get("deadline"))) {
-      return [...cache];
-    } else {
+    if (!isValidTime(time.get("deadline"))) {
       console.log("캐싱 만료")
       cache.clear()
       time.clear()
-      return fetchData();
     }
+    return fetchData();
+
   }
 
 
-  const clearData = async() => {
+  const clearData = async () => {
     "use server"
     cache.clear()
     time.clear()

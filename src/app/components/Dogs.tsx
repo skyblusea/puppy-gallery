@@ -15,8 +15,6 @@ const Dogs: FC<DogsProps> = ({ dog }) => {
     const fetchedDogLength = dog[1].length
     console.log("fetchedDogLength",fetchedDogLength)
     console.log("dog",dog)
-    console.log(fetchedDogLength < 3)
-    console.log(Array(3-fetchedDogLength))
     return (
         <div className={styles.wrap}>
             {dog[1].length && dog[1].map((url) => {
