@@ -13,7 +13,7 @@ const getDogs = () => {
       return [...allBreeds];
     }
     try {
-      const response = await fetch(`https://dog.ceo/api/breeds/list/all`, { cache: 'no-store' });
+      const response = await fetch(`https://dog.ceo/api/breeds/list/all`);
       const data = await response.json();
       Object.keys(data.message).forEach(e => allBreeds.add(e))
       return [...allBreeds];
@@ -43,7 +43,7 @@ const getDogs = () => {
   const fetchingDogs = async (breed: string) => {
     "use server"
     try {
-      const response = await fetch(`https://dog.ceo/api/breed/${breed}/images/random/3`, { cache: 'no-store' });
+      const response = await fetch(`https://dog.ceo/api/breed/${breed}/images/random/3`);
       const data = await response.json();
       return data.message;
     } catch (error) {
@@ -77,12 +77,15 @@ const getDogs = () => {
 
   const cacheRevalidation = async () => {
     "use server"
-    if (!isValidTime(time.get("deadline"))) {
-      cache.clear()
-      time.clear()
+    //refactoring 필요
+    const deadline = time.get("deadline")
+    if(deadline){
+      if (!isValidTime(deadline)) {
+        cache.clear()
+        time.clear()
+      }
     }
     return fetchData();
-
   }
 
 

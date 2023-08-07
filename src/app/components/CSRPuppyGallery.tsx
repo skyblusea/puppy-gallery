@@ -1,37 +1,44 @@
 "use client"
-import { FC, useEffect, useState } from "react";
+import { FC, use, useEffect, useState } from "react";
 import Button from "./Button";
 import PuppyTable from "./PuppyTable";
-
-interface CSRPuppyGalleryProps {
-  dogs: [string, string[]][];
-  fetchData:() => Promise<[string, string[]][]>;
-  clearData:() => void;
-  cacheRevalidation:() => Promise<[string, string[]][]>;
-}
+import { useDogsQuery } from "@/hooks/useDogsQuery";
 
 
-const CSRPuppyGallery: FC<CSRPuppyGalleryProps> = ({ dogs,fetchData,cacheRevalidation, clearData }) => {
-  const [apiCall, setApiCall] = useState(1)
-  const [refetchedDogs, setRefetchedDogs] = useState(dogs)
-  useEffect(() => {
-    cacheRevalidation().then((data) => {
-      setRefetchedDogs(data)
-    })
-  }, [apiCall])
+
+// interface CSRPuppyGalleryProps {
+//   dogs: [string, string[]][];
+//   fetchData:() => Promise<[string, string[]][]>;
+//   clearData:() => void;
+//   cacheRevalidation:() => Promise<[string, string[]][]>;
+// }
 
 
+
+const CSRPuppyGallery = ({}) => {
+
+  // const [apiCall, setApiCall] = useState(1)
+  // const [refetchedDogs, setRefetchedDogs] = useState(dogs)
+  // useEffect(() => {
+  //   cacheRevalidation().then((data) => {
+  //     setRefetchedDogs(data)
+  //   })
+  // }, [apiCall])
+  // const dogs = useDogsQuery()
+  // console.log(dogs)
   return (
     <div className="table">
-      <div className="buttons">
+      {/* <div className="buttons">
         <Button onClick={()=>setApiCall(apiCall+1)}>Refetch</Button>
         <Button onClick={()=>clearData()}>Reset Cache</Button>
       </div>
-      API Call : {apiCall}
-      <PuppyTable dogs={refetchedDogs} />
+      API Call : {apiCall} */}
+      {/* <PuppyTable dogs={refetchedDogs} /> */}
     </div>
 
   );
 };
 
 export default CSRPuppyGallery;
+
+
