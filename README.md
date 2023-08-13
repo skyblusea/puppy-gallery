@@ -1,4 +1,6 @@
 # API Fetching Strategy
+server-side data prefetching 후 client component hydrating 연습
+
    ![image](https://github.com/JOAAAAAAAAAAA/puppy-gallery/assets/116185146/8359a393-f5e4-47a9-83c9-8eb707549223)
 
 
