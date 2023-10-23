@@ -1,7 +1,12 @@
 # API Fetching Strategy
+
 server-side data prefetching 후 client component hydrating 연습
 
-   ![image](https://github.com/JOAAAAAAAAAAA/puppy-gallery/assets/116185146/8359a393-f5e4-47a9-83c9-8eb707549223)
+## 시연 영상
+
+|01-parallel-fetch|02-caching|03-caching-revalidation|04-react-query|
+|---|---|---|---|
+|![01](https://github.com/JOAAAAAAAAAAA/puppy-gallery/assets/116185146/c4fcc449-4fcd-4d9c-bfa2-17a31ad63703)|![02](https://github.com/JOAAAAAAAAAAA/puppy-gallery/assets/116185146/b7135634-16b2-4f0c-b4ff-0b74df9448e4)|![03](https://github.com/JOAAAAAAAAAAA/puppy-gallery/assets/116185146/bb1a72a9-4f8e-4e86-aeef-b91843e74af8)|![04](https://github.com/JOAAAAAAAAAAA/puppy-gallery/assets/116185146/a114f303-fc1a-44be-af59-84819e7f69b4)
 
 
 1. 제시된 Open API를 활용해서 다음의 같은 화면을 만들어 주세요.
